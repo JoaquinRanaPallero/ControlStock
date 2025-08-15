@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-using ControlStock.Dominio;
+﻿using ControlStock.Dominio;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 
 namespace ControlStock.Datos
 {
@@ -55,5 +56,30 @@ namespace ControlStock.Datos
             }
             return lista;
         }
+
+        public void Agregar(Articulo art)
+        {
+            const string sql = @"
+                INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)
+                VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @ImagenUrl, @Precio);";
+
+            using (var conexion = new SqlConnection(connectionString))
+            using (var comando = new SqlCommand(sql, conexion))
+            {
+                comando.Parameters.AddWithValue("@Codigo", art.Codigo);
+                comando.Parameters.AddWithValue("@Nombre", art.Nombre);
+                comando.Parameters.AddWithValue("@Descripcion", (object)art.Descripcion ?? DBNull.Value);
+                comando.Parameters.AddWithValue("@IdMarca", art.Marca?.Id ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@IdCategoria", art.Categoria?.Id ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@ImagenUrl", (object)art.ImagenUrl ?? DBNull.Value);
+                comando.Parameters.AddWithValue("@Precio", art.Precio);
+
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+        }
+
+
+
     }
 }
