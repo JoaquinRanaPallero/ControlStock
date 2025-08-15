@@ -50,9 +50,13 @@ namespace WindowsFormsApp1
             cboCategoria.ValueMember = "Id";
         }
 
-
-
-
+        private void btnABM_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmArticuloABM()) // ventana selector de Alta/Baja/Modificación
+            {
+                frm.ShowDialog(); 
+            }
+        }
     }
 
 

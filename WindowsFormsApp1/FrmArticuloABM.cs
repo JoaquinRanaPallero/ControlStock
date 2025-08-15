@@ -10,11 +10,33 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class FrmArticuloABM : Form
+    public partial class frmArticuloABM : Form
     {
-        public FrmArticuloABM()
+        public frmArticuloABM()
         {
             InitializeComponent();
         }
+
+        private void btnAlta_Click(object sender, EventArgs e)
+        {
+            var frm = new frmArticuloAlta();
+            frm.ShowDialog();
+        }
+        private void btnBaja_Click(object sender, EventArgs e)
+        {
+            var frm = new frmArticuloBaja();
+            frm.ShowDialog();
+        }
+
+        private void btnModificacion_Click(object sender, EventArgs e)
+        {
+            var frm = new frmArticuloModificacion();
+            frm.ShowDialog();
+        }
+
+
+
+
+
     }
 }
