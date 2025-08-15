@@ -21,6 +21,7 @@ namespace WindowsFormsApp1
         private void frmArticulos_Load(object sender, EventArgs e)
         {
             CargarGrid();
+            CargarCombos();
         }
 
         private void CargarGrid()
@@ -32,6 +33,24 @@ namespace WindowsFormsApp1
             dgvArticulos.Columns["Id"].Visible = false;
             dgvArticulos.Columns["ImagenUrl"].Visible = false;
         }
+
+
+        private void CargarCombos()
+        {
+            // Cargar Marcas
+            var marcaNeg = new MarcaNegocio();
+            cboMarca.DataSource = marcaNeg.Listar();
+            cboMarca.DisplayMember = "Descripcion"; 
+            cboMarca.ValueMember = "Id";            
+
+            // Cargar Categorías
+            var catNeg = new CategoriaNegocio();
+            cboCategoria.DataSource = catNeg.Listar();
+            cboCategoria.DisplayMember = "Descripcion";
+            cboCategoria.ValueMember = "Id";
+        }
+
+
 
 
     }

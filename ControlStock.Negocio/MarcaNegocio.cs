@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ControlStock.Negocio
 {
-    public class CategoriaNegocio
+    public class MarcaNegocio
     {
-        public List<Categoria> Listar()
+        public List<Marca> Listar()
         {
-            var datos = new CategoriaDatos();
+            var datos = new MarcaDatos();
             return datos.Listar();
         }
     }
