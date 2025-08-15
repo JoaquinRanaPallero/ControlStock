@@ -28,7 +28,7 @@ namespace WindowsFormsApp1
             ArticuloNegocio negocio = new ArticuloNegocio();
             dgvArticulos.DataSource = negocio.Listar();
 
-            // Opcional: ocultar columnas que no quieras mostrar
+            // Ocular columnas
             dgvArticulos.Columns["Id"].Visible = false;
             dgvArticulos.Columns["ImagenUrl"].Visible = false;
         }

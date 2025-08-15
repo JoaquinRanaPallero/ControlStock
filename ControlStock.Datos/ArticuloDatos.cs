@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using ControlStock.Dominio;
+using System.Configuration;
 
 namespace ControlStock.Datos
 {
     public class ArticuloDatos
     {
-        private string connectionString = "server=localhost\\SQLEXPRESS01; database=CATALOGO_DB; integrated security=true;";
-
+        // private string connectionString = "server=localhost\\SQLEXPRESS; database=CATALOGO_DB; integrated security=true;";
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["CatalogoDb"].ConnectionString;
         public List<Articulo> Listar()
         {
             List<Articulo> lista = new List<Articulo>();
