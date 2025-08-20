@@ -19,20 +19,23 @@ namespace WindowsFormsApp1
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
+            this.Close(); 
             var frm = new frmArticuloAlta();
-            frm.ShowDialog();
+            frm.ShowDialog(); 
         }
         private void btnBaja_Click(object sender, EventArgs e)
         {
+            this.Close();
             var frm = new frmArticuloBaja();
             frm.ShowDialog();
         }
 
-        private void btnModificacion_Click(object sender, EventArgs e)
-        {
-            var frm = new frmArticuloModificacion();
-            frm.ShowDialog();
-        }
+        //private void btnModificacion_Click(object sender, EventArgs e)
+        //{
+        //    this.Close();
+        //    var frm = new frmArticuloModificacion();
+        //    frm.ShowDialog();
+        //}
 
 
 

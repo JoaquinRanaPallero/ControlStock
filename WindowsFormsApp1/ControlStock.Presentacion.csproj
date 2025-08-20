@@ -81,6 +81,12 @@
     <EmbeddedResource Include="frmArticuloABM.resx">
       <DependentUpon>frmArticuloABM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmArticuloAlta.resx">
+      <DependentUpon>frmArticuloAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmArticuloModificacion.resx">
+      <DependentUpon>frmArticuloModificacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmArticulos.resx">
       <DependentUpon>frmArticulos.cs</DependentUpon>
     </EmbeddedResource>
