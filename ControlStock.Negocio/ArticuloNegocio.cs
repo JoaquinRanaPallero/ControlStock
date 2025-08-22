@@ -27,7 +27,7 @@ namespace ControlStock.Negocio
             datos.Eliminar(id);
         }
 
-        public void Modificar(Articulo articulo)
+        public void  Modificar(Articulo articulo)
         {
             // validar
             if (articulo == null) throw new Exception("Artículo no puede ser nulo");

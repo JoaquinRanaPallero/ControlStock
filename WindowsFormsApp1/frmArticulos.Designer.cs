@@ -37,7 +37,6 @@
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnModificar2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -140,23 +139,11 @@
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
-            // btnModificar2
-            // 
-            this.btnModificar2.Location = new System.Drawing.Point(495, 516);
-            this.btnModificar2.Margin = new System.Windows.Forms.Padding(4);
-            this.btnModificar2.Name = "btnModificar2";
-            this.btnModificar2.Size = new System.Drawing.Size(245, 28);
-            this.btnModificar2.TabIndex = 16;
-            this.btnModificar2.Text = "Modificar 2";
-            this.btnModificar2.UseVisualStyleBackColor = true;
-            this.btnModificar2.Click += new System.EventHandler(this.btnModificar2_Click);
-            // 
             // frmArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1416, 559);
-            this.Controls.Add(this.btnModificar2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLimpiarFiltros);
@@ -188,7 +175,6 @@
         private System.Windows.Forms.Button btnLimpiarFiltros;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnModificar2;
     }
 }
 

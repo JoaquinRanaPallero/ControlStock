@@ -39,12 +39,12 @@
             this.txbCodigo = new System.Windows.Forms.TextBox();
             this.txbDescripcion = new System.Windows.Forms.TextBox();
             this.txbPrecio = new System.Windows.Forms.TextBox();
-            this.pbxImagenUrl = new System.Windows.Forms.PictureBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.txtImagenUrl = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmbMarca = new System.Windows.Forms.ComboBox();
             this.cmbCategoria = new System.Windows.Forms.ComboBox();
+            this.pbxImagenUrl = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagenUrl)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,14 +139,6 @@
             this.txbPrecio.Size = new System.Drawing.Size(100, 22);
             this.txbPrecio.TabIndex = 10;
             // 
-            // pbxImagenUrl
-            // 
-            this.pbxImagenUrl.Location = new System.Drawing.Point(428, 60);
-            this.pbxImagenUrl.Name = "pbxImagenUrl";
-            this.pbxImagenUrl.Size = new System.Drawing.Size(299, 202);
-            this.pbxImagenUrl.TabIndex = 13;
-            this.pbxImagenUrl.TabStop = false;
-            // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(143, 307);
@@ -189,17 +181,25 @@
             this.cmbCategoria.Size = new System.Drawing.Size(121, 24);
             this.cmbCategoria.TabIndex = 18;
             // 
+            // pbxImagenUrl
+            // 
+            this.pbxImagenUrl.Location = new System.Drawing.Point(427, 60);
+            this.pbxImagenUrl.Name = "pbxImagenUrl";
+            this.pbxImagenUrl.Size = new System.Drawing.Size(316, 309);
+            this.pbxImagenUrl.TabIndex = 19;
+            this.pbxImagenUrl.TabStop = false;
+            // 
             // frmArticuloAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pbxImagenUrl);
             this.Controls.Add(this.cmbCategoria);
             this.Controls.Add(this.cmbMarca);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtImagenUrl);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.pbxImagenUrl);
             this.Controls.Add(this.txbPrecio);
             this.Controls.Add(this.txbDescripcion);
             this.Controls.Add(this.txbCodigo);
@@ -233,11 +233,11 @@
         private System.Windows.Forms.TextBox txbCodigo;
         private System.Windows.Forms.TextBox txbDescripcion;
         private System.Windows.Forms.TextBox txbPrecio;
-        private System.Windows.Forms.PictureBox pbxImagenUrl;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.TextBox txtImagenUrl;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cmbMarca;
         private System.Windows.Forms.ComboBox cmbCategoria;
+        private System.Windows.Forms.PictureBox pbxImagenUrl;
     }
 }

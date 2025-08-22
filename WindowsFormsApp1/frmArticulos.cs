@@ -127,43 +127,58 @@ namespace WindowsFormsApp1
         //la idea es dejar de usar esta forma de modificacion
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (dgvArticulos.CurrentRow == null)
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            using (var frm = new frmArticuloAlta(seleccionado))
             {
-                MessageBox.Show("Seleccione un artículo para modificar");
-                return;
+
+                frm.ShowDialog();
+                CargarGrid(); // Actualiza el grid después de cualquier operación 
             }
 
-            try
-            {
-                // Obtener datos de la fila seleccionada 
-                int id = (int)dgvArticulos.CurrentRow.Cells["Id"].Value;
-                string nombre = dgvArticulos.CurrentRow.Cells["Nombre"].Value.ToString();
-                string codigo = dgvArticulos.CurrentRow.Cells["Codigo"].Value.ToString();
 
-                // Buscar el artículo completo por ID
-                var negocio = new ArticuloNegocio();
-                Articulo articulo = negocio.ObtenerPorId(id);
 
-                if (articulo == null)
-                {
-                    MessageBox.Show("No se encontró el artículo seleccionado");
-                    return;
-                }
 
-                // Abrir formulario de modificación PASANDO el artículo
-                using (var frm = new frmArticuloModificacion(articulo))
-                {
-                    if (frm.ShowDialog() == DialogResult.OK)
-                    {
-                        MessageBox.Show("Artículo modificado correctamente");
-                        CargarGrid(); // Refrescar el grid
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al modificar: {ex.Message}");
-            }
+
+
+
+            //if (dgvArticulos.CurrentRow == null)
+            //{
+            //    MessageBox.Show("Seleccione un artículo para modificar");
+            //    return;
+            //}
+
+            //try
+            //{
+            //    // Obtener datos de la fila seleccionada 
+            //    int id = (int)dgvArticulos.CurrentRow.Cells["Id"].Value;
+            //    string nombre = dgvArticulos.CurrentRow.Cells["Nombre"].Value.ToString();
+            //    string codigo = dgvArticulos.CurrentRow.Cells["Codigo"].Value.ToString();
+
+            //    // Buscar el artículo completo por ID
+            //    var negocio = new ArticuloNegocio();
+            //    Articulo articulo = negocio.ObtenerPorId(id);
+
+            //    if (articulo == null)
+            //    {
+            //        MessageBox.Show("No se encontró el artículo seleccionado");
+            //        return;
+            //    }
+
+            //    // Abrir formulario de modificación PASANDO el artículo
+            //    using (var frm = new frmArticuloModificacion(articulo))
+            //    {
+            //        if (frm.ShowDialog() == DialogResult.OK)
+            //        {
+            //            MessageBox.Show("Artículo modificado correctamente");
+            //            CargarGrid(); // Refrescar el grid
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error al modificar: {ex.Message}");
+            //}
         }
 
         //filtro
@@ -215,14 +230,7 @@ namespace WindowsFormsApp1
 
         private void btnModificar2_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado;
-            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            using (var frm = new frmArticuloAlta(seleccionado))
-            {
-                 
-                frm.ShowDialog();
-                CargarGrid(); // Actualiza el grid después de cualquier operación 
-            }
+            
         }
     }
 }
