@@ -39,11 +39,13 @@
             this.txbCodigo = new System.Windows.Forms.TextBox();
             this.txbDescripcion = new System.Windows.Forms.TextBox();
             this.txbPrecio = new System.Windows.Forms.TextBox();
-            this.cmbCategoria = new System.Windows.Forms.ComboBox();
-            this.cmbMarca = new System.Windows.Forms.ComboBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbxImagenUrl = new System.Windows.Forms.PictureBox();
             this.btnGuardar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.txtImagenUrl = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmbMarca = new System.Windows.Forms.ComboBox();
+            this.cmbCategoria = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImagenUrl)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -94,7 +96,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(72, 199);
+            this.label6.Location = new System.Drawing.Point(73, 229);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 16);
             this.label6.TabIndex = 5;
@@ -103,7 +105,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(74, 241);
+            this.label7.Location = new System.Drawing.Point(85, 265);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 16);
             this.label7.TabIndex = 6;
@@ -137,29 +139,13 @@
             this.txbPrecio.Size = new System.Drawing.Size(100, 22);
             this.txbPrecio.TabIndex = 10;
             // 
-            // cmbCategoria
+            // pbxImagenUrl
             // 
-            this.cmbCategoria.FormattingEnabled = true;
-            this.cmbCategoria.Location = new System.Drawing.Point(182, 238);
-            this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(121, 24);
-            this.cmbCategoria.TabIndex = 11;
-            // 
-            // cmbMarca
-            // 
-            this.cmbMarca.FormattingEnabled = true;
-            this.cmbMarca.Location = new System.Drawing.Point(182, 199);
-            this.cmbMarca.Name = "cmbMarca";
-            this.cmbMarca.Size = new System.Drawing.Size(121, 24);
-            this.cmbMarca.TabIndex = 12;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(428, 60);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(299, 202);
-            this.pictureBox1.TabIndex = 13;
-            this.pictureBox1.TabStop = false;
+            this.pbxImagenUrl.Location = new System.Drawing.Point(428, 60);
+            this.pbxImagenUrl.Name = "pbxImagenUrl";
+            this.pbxImagenUrl.Size = new System.Drawing.Size(299, 202);
+            this.pbxImagenUrl.TabIndex = 13;
+            this.pbxImagenUrl.TabStop = false;
             // 
             // btnGuardar
             // 
@@ -171,15 +157,49 @@
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
+            // txtImagenUrl
+            // 
+            this.txtImagenUrl.Location = new System.Drawing.Point(182, 198);
+            this.txtImagenUrl.Name = "txtImagenUrl";
+            this.txtImagenUrl.Size = new System.Drawing.Size(100, 22);
+            this.txtImagenUrl.TabIndex = 15;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(70, 198);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(82, 16);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "URL Imagen";
+            // 
+            // cmbMarca
+            // 
+            this.cmbMarca.FormattingEnabled = true;
+            this.cmbMarca.Location = new System.Drawing.Point(182, 238);
+            this.cmbMarca.Name = "cmbMarca";
+            this.cmbMarca.Size = new System.Drawing.Size(121, 24);
+            this.cmbMarca.TabIndex = 17;
+            // 
+            // cmbCategoria
+            // 
+            this.cmbCategoria.FormattingEnabled = true;
+            this.cmbCategoria.Location = new System.Drawing.Point(161, 268);
+            this.cmbCategoria.Name = "cmbCategoria";
+            this.cmbCategoria.Size = new System.Drawing.Size(121, 24);
+            this.cmbCategoria.TabIndex = 18;
+            // 
             // frmArticuloAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.cmbMarca);
             this.Controls.Add(this.cmbCategoria);
+            this.Controls.Add(this.cmbMarca);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtImagenUrl);
+            this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.pbxImagenUrl);
             this.Controls.Add(this.txbPrecio);
             this.Controls.Add(this.txbDescripcion);
             this.Controls.Add(this.txbCodigo);
@@ -194,7 +214,7 @@
             this.Name = "frmArticuloAlta";
             this.Text = "frmArticuloAlta";
             this.Load += new System.EventHandler(this.frmArticuloAlta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImagenUrl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,9 +233,11 @@
         private System.Windows.Forms.TextBox txbCodigo;
         private System.Windows.Forms.TextBox txbDescripcion;
         private System.Windows.Forms.TextBox txbPrecio;
-        private System.Windows.Forms.ComboBox cmbCategoria;
-        private System.Windows.Forms.ComboBox cmbMarca;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbxImagenUrl;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.TextBox txtImagenUrl;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cmbMarca;
+        private System.Windows.Forms.ComboBox cmbCategoria;
     }
 }

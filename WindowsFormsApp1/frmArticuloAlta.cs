@@ -15,9 +15,41 @@ namespace WindowsFormsApp1
 {
     public partial class frmArticuloAlta : Form
     {
+        private Articulo articulo = null;
         public frmArticuloAlta()
         {
             InitializeComponent();
+            
+            // this.articulo = articulo; // esto hace que el código no precargue?
+        }
+
+        public frmArticuloAlta(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+        }
+
+        private void CargarCombos()
+        {
+            var marcaNeg = new MarcaNegocio();
+            var categoriaNeg = new CategoriaNegocio();
+
+            var marcas = marcaNeg.Listar();
+            var categorias = categoriaNeg.Listar();
+
+            // Marca
+            cmbMarca.DataSource = null;
+            cmbMarca.DisplayMember = nameof(Marca.Descripcion);
+            cmbMarca.ValueMember = nameof(Marca.Id);
+            cmbMarca.DataSource = marcas;
+            cmbMarca.SelectedIndex = -1;
+
+            // Categoría
+            cmbCategoria.DataSource = null;
+            cmbCategoria.DisplayMember = nameof(Categoria.Descripcion);
+            cmbCategoria.ValueMember = nameof(Categoria.Id);
+            cmbCategoria.DataSource = categorias;
+            cmbCategoria.SelectedIndex = -1;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -85,7 +117,7 @@ namespace WindowsFormsApp1
                     Descripcion = descripcion,
                     Marca = marca,
                     Categoria = categoria,
-                    // ImagenUrl = txtImagenUrl.Text?.Trim(),
+                    ImagenUrl = txtImagenUrl.Text?.Trim(),
                     Precio = precio
                 };
 
@@ -108,20 +140,27 @@ namespace WindowsFormsApp1
         {
             try
             {
-                var marcaNeg = new MarcaNegocio();
-                var categoriaNeg = new CategoriaNegocio();
 
-                // --- Combo Marca ---
-                cmbMarca.DataSource = marcaNeg.Listar();
-                cmbMarca.DisplayMember = "Descripcion";
-                cmbMarca.ValueMember = "Id";            
-                cmbMarca.SelectedIndex = -1;            // para que arranque vacío
+                CargarCombos();
 
-                // --- Combo Categoría ---
-                cmbCategoria.DataSource = categoriaNeg.Listar();
-                cmbCategoria.DisplayMember = "Descripcion";
-                cmbCategoria.ValueMember = "Id";
-                cmbCategoria.SelectedIndex = -1;
+
+
+                // --- Precargar de datos para modificar
+                if (articulo != null)
+                {
+                    txbCodigo.Text = articulo.Codigo;
+                    txbNombre.Text = articulo.Nombre;
+                    txbDescripcion.Text = articulo.Descripcion;
+                    txbPrecio.Text = articulo.Precio.ToString("F2");
+
+                    // Recién ahora es seguro usar SelectedValue
+                    if (articulo.Marca != null)
+                        cmbMarca.SelectedValue = articulo.Marca.Id;
+
+                    if (articulo.Categoria != null)
+                        cmbCategoria.SelectedValue = articulo.Categoria.Id;
+                }
+
             }
             catch (Exception ex)
             {

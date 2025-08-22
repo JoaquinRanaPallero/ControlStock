@@ -46,33 +46,44 @@ namespace WindowsFormsApp1
             dgvArticulos.Columns["ImagenUrl"].Visible = false;
         }
 
-       
-        //private void CargarCombos()
-        //{
-        //    // Cargar Marcas
-        //    var marcaNeg = new MarcaNegocio();
-        //    cboMarca.DataSource = marcaNeg.Listar();
-        //    cboMarca.DisplayMember = "Descripcion"; 
-        //    cboMarca.ValueMember = "Id";            
 
-        //    // Cargar Categorías
-        //    var catNeg = new CategoriaNegocio();
-        //    cboCategoria.DataSource = catNeg.Listar();
-        //    cboCategoria.DisplayMember = "Descripcion";
-        //    cboCategoria.ValueMember = "Id";
-        //}
+        //////private void CargarCombos()
+        //////{
+        //////    // Cargar Marcas
+        //////    var marcaNeg = new MarcaNegocio();
+        //////    cboMarca.DataSource = marcaNeg.Listar();
+        //////    cboMarca.DisplayMember = "Descripcion"; 
+        //////    cboMarca.ValueMember = "Id";            
 
-
+        //////    // Cargar Categorías
+        //////    var catNeg = new CategoriaNegocio();
+        //////    cboCategoria.DataSource = catNeg.Listar();
+        //////    cboCategoria.DisplayMember = "Descripcion";
+        //////    cboCategoria.ValueMember = "Id";
+        //////}
 
 
+        /// prueba
+        /// 
+
+
+
+
+
+
+
+
+
+        // botón ABM - hoy funciona solo para ALTA
         private void btnABM_Click(object sender, EventArgs e)
         {
-            using (var frm = new frmArticuloABM())
+            using (var frm = new frmArticuloAlta())
             {
                 frm.ShowDialog();
                 CargarGrid(); // Actualiza el grid después de cualquier operación 
             }
         }
+
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
@@ -113,6 +124,7 @@ namespace WindowsFormsApp1
             }
         }
 
+        //la idea es dejar de usar esta forma de modificacion
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (dgvArticulos.CurrentRow == null)
@@ -194,8 +206,25 @@ namespace WindowsFormsApp1
                 pictureBox1.Load("https://efectocolibri.com/wp-content/uploads/2021/01/placeholder.png");
 
             }
-        }   
-     }
+        }
+
+
+
+
+        // boton modificar 2 - pruebas
+
+        private void btnModificar2_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            using (var frm = new frmArticuloAlta(seleccionado))
+            {
+                 
+                frm.ShowDialog();
+                CargarGrid(); // Actualiza el grid después de cualquier operación 
+            }
+        }
+    }
 }
 
 
