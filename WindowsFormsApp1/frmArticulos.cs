@@ -17,10 +17,6 @@ namespace WindowsFormsApp1
     public partial class frmArticulos : Form
     {
 
-
-
-
-
         // todos los articulos cargados
         private List<Articulo> articulostodos = new List<Articulo>();
 

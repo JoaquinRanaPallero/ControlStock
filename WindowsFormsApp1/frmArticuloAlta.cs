@@ -43,14 +43,14 @@ namespace WindowsFormsApp1
             cmbMarca.DisplayMember = nameof(Marca.Descripcion);
             cmbMarca.ValueMember = nameof(Marca.Id);
             cmbMarca.DataSource = marcas;
-            cmbMarca.SelectedValue = articulo.Id;
+            // cmbMarca.SelectedValue = articulo.Id;
 
             // Categoría
             cmbCategoria.DataSource = null;
             cmbCategoria.DisplayMember = nameof(Categoria.Descripcion);
             cmbCategoria.ValueMember = nameof(Categoria.Id);
             cmbCategoria.DataSource = categorias;
-            cmbCategoria.SelectedValue = articulo.Id;
+            // cmbCategoria.SelectedValue = articulo.Id;
         }
 
 
