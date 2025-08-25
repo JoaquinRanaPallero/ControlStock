@@ -175,7 +175,7 @@
             // 
             this.cboCampo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCampo.FormattingEnabled = true;
-            this.cboCampo.Location = new System.Drawing.Point(57, 439);
+            this.cboCampo.Location = new System.Drawing.Point(57, 440);
             this.cboCampo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cboCampo.Name = "cboCampo";
             this.cboCampo.Size = new System.Drawing.Size(114, 21);
