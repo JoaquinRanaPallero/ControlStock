@@ -2,12 +2,6 @@
 using ControlStock.Negocio;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -19,7 +13,6 @@ namespace WindowsFormsApp1
 
         // todos los articulos cargados
         private List<Articulo> articulostodos = new List<Articulo>();
-
 
         public frmArticulos()
         {
@@ -114,7 +107,7 @@ namespace WindowsFormsApp1
 
         }
 
-        //filtro
+        
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -154,8 +147,6 @@ namespace WindowsFormsApp1
             CargarGrid();
         }
 
-
-
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvArticulos.CurrentRow == null || dgvArticulos.CurrentRow.DataBoundItem == null)
@@ -177,10 +168,6 @@ namespace WindowsFormsApp1
             }
         }
 
-
-
-
-        // boton modificar 2 - pruebas -- no se usa más
 
         private void btnModificar2_Click(object sender, EventArgs e)
         {

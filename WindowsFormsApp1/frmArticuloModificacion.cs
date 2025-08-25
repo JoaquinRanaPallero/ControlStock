@@ -1,14 +1,7 @@
 ﻿using ControlStock.Dominio;
 using ControlStock.Negocio;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -89,7 +82,6 @@ namespace WindowsFormsApp1
                 articuloModificar.Marca = marca;
                 articuloModificar.Categoria = categoria;
                 articuloModificar.Precio = precio;
-                // articuloModificar.ImagenUrl = txtImagenUrl.Text?.Trim();
 
                 var negocio = new ArticuloNegocio();
                 negocio.Modificar(articuloModificar);

@@ -1,14 +1,7 @@
 ﻿using ControlStock.Dominio;
 using ControlStock.Negocio;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -19,8 +12,7 @@ namespace WindowsFormsApp1
         public frmArticuloAlta()
         {
             InitializeComponent();
-            
-            // this.articulo = articulo; // esto hace que el código no precargue?
+                        
         }
 
         public frmArticuloAlta(Articulo articulo)
@@ -43,23 +35,19 @@ namespace WindowsFormsApp1
             cmbMarca.DisplayMember = nameof(Marca.Descripcion);
             cmbMarca.ValueMember = nameof(Marca.Id);
             cmbMarca.DataSource = marcas;
-            // cmbMarca.SelectedValue = articulo.Id;
-
+            
             // Categoría
             cmbCategoria.DataSource = null;
             cmbCategoria.DisplayMember = nameof(Categoria.Descripcion);
             cmbCategoria.ValueMember = nameof(Categoria.Id);
             cmbCategoria.DataSource = categorias;
-            // cmbCategoria.SelectedValue = articulo.Id;
         }
-
-
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                // --- Validaciones ---
+                //  Validaciones 
                 string codigo = txbCodigo.Text?.Trim();
                 string nombre = txbNombre.Text?.Trim();
                 string descripcion = txbDescripcion.Text?.Trim();
@@ -84,7 +72,7 @@ namespace WindowsFormsApp1
                 if (precio <= 0)
                 { MessageBox.Show("El Precio debe ser mayor que 0."); txbPrecio.Focus(); return; }
 
-                // --- Alta o Modificación ---
+                //  Alta o Modificación 
                 var negocio = new ArticuloNegocio();
 
                 if (articulo == null)
@@ -129,9 +117,6 @@ namespace WindowsFormsApp1
             }
         }
 
-
-
-
         private void frmArticuloAlta_Load(object sender, EventArgs e)
         {
             try
@@ -139,9 +124,7 @@ namespace WindowsFormsApp1
 
                 CargarCombos();
 
-
-
-                // --- Precargar de datos para modificar
+                //  Precarga de datos para modificar
                 if (articulo != null)
                 {
                     txbCodigo.Text = articulo.Codigo;
@@ -152,7 +135,7 @@ namespace WindowsFormsApp1
                     CargarImagen(articulo.ImagenUrl);
 
 
-                    // Recién ahora es seguro usar SelectedValue
+                    
                     if (articulo.Marca != null)
                         cmbMarca.SelectedValue = articulo.Marca.Id;
 
@@ -168,16 +151,13 @@ namespace WindowsFormsApp1
             }
         }
 
-
-
-
         private void CargarImagen(string url)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(url))
                 {
-                    pbxImagenUrl.Image = null; // o podrías poner una imagen por defecto
+                    pbxImagenUrl.Image = null; // poner imagen por defecto?
                     return;
                 }
 
@@ -185,11 +165,11 @@ namespace WindowsFormsApp1
                 pbxImagenUrl.BorderStyle = BorderStyle.FixedSingle;
                 pbxImagenUrl.SizeMode = PictureBoxSizeMode.Zoom;
 
-                pbxImagenUrl.Load(url); // carga desde URL o ruta local
+                pbxImagenUrl.Load(url); 
             }
             catch
             {
-                pbxImagenUrl.Image = null; // en caso de error no rompe, solo limpia
+                pbxImagenUrl.Image = null; 
             }
         }
 

@@ -9,8 +9,7 @@ namespace ControlStock.Negocio
 {
     public class ArticuloNegocio
     {
-        
-       
+             
         public List<Articulo> Listar()
         {
             ArticuloDatos datos = new ArticuloDatos();
@@ -134,8 +133,6 @@ namespace ControlStock.Negocio
 
                     art.Marca = new Marca
                     {
-                        // Id = (int)lector["IdMarca"],
-                        // Descripcion = lector["Marca"].ToString()
                         Id = dr["IdMarca"] == DBNull.Value ? 0 : Convert.ToInt32(dr["IdMarca"]),
                         Descripcion = dr["Marca"] == DBNull.Value ? null : dr["Marca"].ToString()
                     };
@@ -145,16 +142,10 @@ namespace ControlStock.Negocio
                         Id = dr["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(dr["IdCategoria"]),
                         Descripcion = dr["Categoria"] == DBNull.Value ? null : dr["Categoria"].ToString()
 
-
-                        // Id = (int)lector["IdCategoria"],
-                        //Descripcion = lector["Categoria"].ToString()
                     };
 
                     lista.Add(art);
                 }
-
-
-
 
             }
             catch (Exception ex)

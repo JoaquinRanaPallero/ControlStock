@@ -30,16 +30,5 @@ namespace WindowsFormsApp1
             frm.ShowDialog();
         }
 
-        //private void btnModificacion_Click(object sender, EventArgs e)
-        //{
-        //    this.Close();
-        //    var frm = new frmArticuloModificacion();
-        //    frm.ShowDialog();
-        //}
-
-
-
-
-
     }
 }

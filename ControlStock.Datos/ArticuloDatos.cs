@@ -41,8 +41,6 @@ namespace ControlStock.Datos
 
                     art.Marca = new Marca
                     {
-                        // Id = (int)lector["IdMarca"],
-                        // Descripcion = lector["Marca"].ToString()
                         Id = lector["IdMarca"] == DBNull.Value ? 0 : Convert.ToInt32(lector["IdMarca"]),
                         Descripcion = lector["Marca"] == DBNull.Value ? null : lector["Marca"].ToString()
                     };
@@ -52,9 +50,6 @@ namespace ControlStock.Datos
                         Id = lector["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(lector["IdCategoria"]),
                         Descripcion = lector["Categoria"] == DBNull.Value ? null : lector["Categoria"].ToString()
 
-
-                        // Id = (int)lector["IdCategoria"],
-                        //Descripcion = lector["Categoria"].ToString()
                     };
 
                     lista.Add(art);
