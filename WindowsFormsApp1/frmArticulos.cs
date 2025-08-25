@@ -45,6 +45,8 @@ namespace WindowsFormsApp1
             // Ocular columnas
             dgvArticulos.Columns["Id"].Visible = false;
             dgvArticulos.Columns["ImagenUrl"].Visible = false;
+            dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "N2";
+
         }
 
         // botón ABM - hoy funciona solo para ALTA
