@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace WindowsFormsApp1
 {
     public partial class frmArticulos : Form
@@ -21,7 +23,7 @@ namespace WindowsFormsApp1
 
         // todos los articulos cargados
         private List<Articulo> articulostodos = new List<Articulo>();
-        
+
 
         public frmArticulos()
         {
@@ -32,6 +34,9 @@ namespace WindowsFormsApp1
         {
             CargarGrid();
             //CargarCombos();
+            cboCampo.Items.Add("Precio");
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Descripción");
         }
 
         private void CargarGrid()
@@ -45,34 +50,6 @@ namespace WindowsFormsApp1
             dgvArticulos.Columns["Id"].Visible = false;
             dgvArticulos.Columns["ImagenUrl"].Visible = false;
         }
-
-
-        //////private void CargarCombos()
-        //////{
-        //////    // Cargar Marcas
-        //////    var marcaNeg = new MarcaNegocio();
-        //////    cboMarca.DataSource = marcaNeg.Listar();
-        //////    cboMarca.DisplayMember = "Descripcion"; 
-        //////    cboMarca.ValueMember = "Id";            
-
-        //////    // Cargar Categorías
-        //////    var catNeg = new CategoriaNegocio();
-        //////    cboCategoria.DataSource = catNeg.Listar();
-        //////    cboCategoria.DisplayMember = "Descripcion";
-        //////    cboCategoria.ValueMember = "Id";
-        //////}
-
-
-        /// prueba
-        /// 
-
-
-
-
-
-
-
-
 
         // botón ABM - hoy funciona solo para ALTA
         private void btnABM_Click(object sender, EventArgs e)
@@ -115,7 +92,7 @@ namespace WindowsFormsApp1
                     negocio.Eliminar(id);
 
                     MessageBox.Show("Artículo eliminado correctamente");
-                    CargarGrid(); 
+                    CargarGrid();
                 }
             }
             catch (Exception ex)
@@ -124,7 +101,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        //la idea es dejar de usar esta forma de modificacion
         private void btnModificar_Click(object sender, EventArgs e)
         {
             Articulo seleccionado;
@@ -138,63 +114,42 @@ namespace WindowsFormsApp1
 
 
 
-
-
-
-
-            //if (dgvArticulos.CurrentRow == null)
-            //{
-            //    MessageBox.Show("Seleccione un artículo para modificar");
-            //    return;
-            //}
-
-            //try
-            //{
-            //    // Obtener datos de la fila seleccionada 
-            //    int id = (int)dgvArticulos.CurrentRow.Cells["Id"].Value;
-            //    string nombre = dgvArticulos.CurrentRow.Cells["Nombre"].Value.ToString();
-            //    string codigo = dgvArticulos.CurrentRow.Cells["Codigo"].Value.ToString();
-
-            //    // Buscar el artículo completo por ID
-            //    var negocio = new ArticuloNegocio();
-            //    Articulo articulo = negocio.ObtenerPorId(id);
-
-            //    if (articulo == null)
-            //    {
-            //        MessageBox.Show("No se encontró el artículo seleccionado");
-            //        return;
-            //    }
-
-            //    // Abrir formulario de modificación PASANDO el artículo
-            //    using (var frm = new frmArticuloModificacion(articulo))
-            //    {
-            //        if (frm.ShowDialog() == DialogResult.OK)
-            //        {
-            //            MessageBox.Show("Artículo modificado correctamente");
-            //            CargarGrid(); // Refrescar el grid
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Error al modificar: {ex.Message}");
-            //}
         }
 
         //filtro
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
-            List<Articulo> listaFiltrada;
-            listaFiltrada = articulostodos.FindAll(x =>
-                x.Nombre.ToLower().Contains(txtFiltro.Text.ToLower()) ||
-                x.Codigo.ToLower().Contains(txtFiltro.Text.ToLower()) ||
-                (x.Marca != null && x.Marca.Descripcion.ToLower().Contains(txtFiltro.Text.ToLower())) ||
-                (x.Categoria != null && x.Categoria.Descripcion.ToLower().Contains(txtFiltro.Text.ToLower())));
-            dgvArticulos.DataSource = null;
-            dgvArticulos.DataSource = listaFiltrada;
-            dgvArticulos.Columns["Id"].Visible = false;
-            dgvArticulos.Columns["ImagenUrl"].Visible = false;
-        }
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            try
+            {
+                // VERIFICAR SI HAY ITEM SELECCIONADO
+                if (cboCampo.SelectedItem == null || cboCriterio.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, selecciona ambos campos para filtrar");
+                    return;
+                }
+
+                // VERIFICAR SI EL FILTRO ESTÁ VACÍO
+                if (string.IsNullOrWhiteSpace(txtFiltroAvanzado.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa un valor para filtrar");
+                    return;
+                }
+
+
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltroAvanzado.Text;
+                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
+
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Error en el filtro: {ex.Message}");
+            }
+            
+            
+        } 
 
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
@@ -203,9 +158,10 @@ namespace WindowsFormsApp1
 
 
 
-        //aca hay un problema con el acceso a imagenes de otros articulos que no sean el primero, da error 403 forbidden. 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvArticulos.CurrentRow == null || dgvArticulos.CurrentRow.DataBoundItem == null)
+                return;
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             cargarImagen(seleccionado.ImagenUrl);
         }
@@ -226,14 +182,77 @@ namespace WindowsFormsApp1
 
 
 
-        // boton modificar 2 - pruebas
+        // boton modificar 2 - pruebas -- no se usa más
 
         private void btnModificar2_Click(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            List<Articulo> listaFiltrada;
+            listaFiltrada = articulostodos.FindAll(x =>
+               x.Nombre.ToLower().Contains(txtFiltro.Text.ToLower()) ||
+               x.Codigo.ToLower().Contains(txtFiltro.Text.ToLower()) ||
+               (x.Marca != null && x.Marca.Descripcion.ToLower().Contains(txtFiltro.Text.ToLower())) ||
+               (x.Categoria != null && x.Categoria.Descripcion.ToLower().Contains(txtFiltro.Text.ToLower())));
+            dgvArticulos.DataSource = null;
+            dgvArticulos.DataSource = listaFiltrada;
+            dgvArticulos.Columns["Id"].Visible = false;
+            dgvArticulos.Columns["ImagenUrl"].Visible = false;
+        }
+
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cboCampo.SelectedItem.ToString();
+            if (opcion == "Precio")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
+            }
+            else
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+            }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
