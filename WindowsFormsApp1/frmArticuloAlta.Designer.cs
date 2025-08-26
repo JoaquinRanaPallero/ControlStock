@@ -167,6 +167,7 @@
             this.txtImagenUrl.Name = "txtImagenUrl";
             this.txtImagenUrl.Size = new System.Drawing.Size(114, 20);
             this.txtImagenUrl.TabIndex = 15;
+            this.txtImagenUrl.TextChanged += new System.EventHandler(this.txtImagenUrl_TextChanged_1);
             // 
             // label8
             // 

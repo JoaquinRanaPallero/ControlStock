@@ -173,6 +173,11 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void txtImagenUrl_TextChanged_1(object sender, EventArgs e)
+        {
+            // Llama al método que para cargar la imagen pasándole el texto actual del TextBox.
+            CargarImagen(txtImagenUrl.Text);
+        }
     }
 }
 
