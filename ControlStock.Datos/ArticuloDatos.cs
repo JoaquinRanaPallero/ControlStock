@@ -13,9 +13,12 @@ namespace ControlStock.Datos
         public List<Articulo> Listar()
         {
             List<Articulo> lista = new List<Articulo>();
+            AccesoDatos datos = new AccesoDatos(); // 1.Se crea el objeto de acceso
 
-            using (SqlConnection conexion = new SqlConnection(connectionString))
+            //using (SqlConnection conexion = new SqlConnection(connectionString)) // 2. se reemplaza por la clase AccesoDatos
+            try
             {
+                // se define query
                 string query = @"SELECT A.Id, Codigo, Nombre, A.Descripcion, 
                                         M.Descripcion AS Marca, 
                                         C.Descripcion AS Categoria, 
@@ -25,38 +28,49 @@ namespace ControlStock.Datos
                                  LEFT JOIN MARCAS M ON A.IdMarca = M.Id
                                  LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id";
 
-                SqlCommand comando = new SqlCommand(query, conexion);
-                conexion.Open();
-                SqlDataReader lector = comando.ExecuteReader();
+                // SqlCommand comando = new SqlCommand(query, conexion);
+                // conexion.Open();
+                //SqlDataReader lector = comando.ExecuteReader();
 
-                while (lector.Read())
+                datos.SetearConsulta(query); //se ejecuta consulta desde accesodatos
+                datos.EjecutarLectura();
+
+                // leer resultados
+                while (datos.Lector.Read())
                 {
                     Articulo art = new Articulo();
-                    art.Id = (int)lector["Id"];
-                    art.Codigo = lector["Codigo"].ToString();
-                    art.Nombre = lector["Nombre"].ToString();
-                    art.Descripcion = lector["Descripcion"].ToString();
-                    art.ImagenUrl = lector["ImagenUrl"].ToString();
-                    art.Precio = (decimal)lector["Precio"];
+                    art.Codigo = datos.Lector["Codigo"].ToString();
+                    art.Nombre = datos.Lector["Nombre"].ToString();
+                    art.Descripcion = datos.Lector["Descripcion"].ToString();
+                    art.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+                    art.Precio = (decimal)datos.Lector["Precio"];
 
                     art.Marca = new Marca
                     {
-                        Id = lector["IdMarca"] == DBNull.Value ? 0 : Convert.ToInt32(lector["IdMarca"]),
-                        Descripcion = lector["Marca"] == DBNull.Value ? null : lector["Marca"].ToString()
+                        Id = datos.Lector["IdMarca"] == DBNull.Value ? 0 : Convert.ToInt32(datos.Lector["IdMarca"]),
+                        Descripcion = datos.Lector["Marca"] == DBNull.Value ? null : datos.Lector["Marca"].ToString()
                     };
 
                     art.Categoria = new Categoria
                     {
-                        Id = lector["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(lector["IdCategoria"]),
-                        Descripcion = lector["Categoria"] == DBNull.Value ? null : lector["Categoria"].ToString()
+                        Id = datos.Lector["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(datos.Lector["IdCategoria"]),
+                        Descripcion = datos.Lector["Categoria"] == DBNull.Value ? null : datos.Lector["Categoria"].ToString()
 
                     };
-
                     lista.Add(art);
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }   
             return lista;
-        }
+    }
+        
 
         public void Agregar(Articulo art)
         {
