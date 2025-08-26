@@ -51,5 +51,19 @@ namespace ControlStock.Datos
         {
             comando.Parameters.AddWithValue(nombre, valor);
         }
+
+        public void EjecutarAccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

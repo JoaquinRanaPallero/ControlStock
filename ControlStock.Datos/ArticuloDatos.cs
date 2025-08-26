@@ -44,6 +44,7 @@ namespace ControlStock.Datos
                     art.Descripcion = datos.Lector["Descripcion"].ToString();
                     art.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
                     art.Precio = (decimal)datos.Lector["Precio"];
+                    art.Id = (int)datos.Lector["Id"];
 
                     art.Marca = new Marca
                     {
@@ -70,76 +71,100 @@ namespace ControlStock.Datos
             }   
             return lista;
     }
-        
+
 
         public void Agregar(Articulo art)
         {
-            const string sql = @"
-                INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)
-                VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @ImagenUrl, @Precio);";
-
-            using (var conexion = new SqlConnection(connectionString))
-            using (var comando = new SqlCommand(sql, conexion))
+            AccesoDatos datos = new AccesoDatos();
+            try
             {
-                comando.Parameters.AddWithValue("@Codigo", art.Codigo);
-                comando.Parameters.AddWithValue("@Nombre", art.Nombre);
-                comando.Parameters.AddWithValue("@Descripcion", (object)art.Descripcion ?? DBNull.Value);
-                comando.Parameters.AddWithValue("@IdMarca", art.Marca?.Id ?? (object)DBNull.Value);
-                comando.Parameters.AddWithValue("@IdCategoria", art.Categoria?.Id ?? (object)DBNull.Value);
-                comando.Parameters.AddWithValue("@ImagenUrl", (object)art.ImagenUrl ?? DBNull.Value);
-                comando.Parameters.AddWithValue("@Precio", art.Precio);
+                const string sql = @"
+                    INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)
+                    VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @ImagenUrl, @Precio);";
 
-                conexion.Open();
-                comando.ExecuteNonQuery();
+                datos.SetearConsulta(sql);
+
+                datos.AgregarParametro("@Codigo", art.Codigo);
+                datos.AgregarParametro("@Nombre", art.Nombre);
+                datos.AgregarParametro("@Descripcion", (object)art.Descripcion ?? DBNull.Value);
+                datos.AgregarParametro("@IdMarca", art.Marca?.Id ?? (object)DBNull.Value);
+                datos.AgregarParametro("@IdCategoria", art.Categoria?.Id ?? (object)DBNull.Value);
+                datos.AgregarParametro("@ImagenUrl", (object)art.ImagenUrl ?? DBNull.Value);
+                datos.AgregarParametro("@Precio", art.Precio);
+
+                datos.EjecutarAccion();
+            
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
             }
         }
-
         public void Eliminar(int id)
         {
-            if (id <= 0)
-                throw new ArgumentException("El ID debe ser un número entero positivo.", nameof(id));
-
-            const string sql = @"DELETE FROM ARTICULOS WHERE Id = @Id";
-
-            using (var conexion = new SqlConnection(connectionString))
-            using (var comando = new SqlCommand(sql, conexion))
+            AccesoDatos datos = new AccesoDatos();
+            try
             {
-                comando.Parameters.AddWithValue("@Id", id);
-
-                conexion.Open();
-                comando.ExecuteNonQuery();
+                string sql = @"DELETE FROM ARTICULOS WHERE Id = @Id";
+                datos.SetearConsulta(sql);
+                datos.AgregarParametro("@Id", id);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
             }
         }
 
         public void Modificar(Articulo art)
         {
-            const string sql = @"
-        UPDATE ARTICULOS 
-        SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, 
-            IdMarca = @IdMarca, IdCategoria = @IdCategoria, 
-            ImagenUrl = @ImagenUrl, Precio = @Precio 
-        WHERE Id = @Id";
-
-            using (var conexion = new SqlConnection(connectionString))
-            using (var comando = new SqlCommand(sql, conexion))
+            AccesoDatos datos = new AccesoDatos();
+            try
             {
-                comando.Parameters.AddWithValue("@Id", art.Id);
-                comando.Parameters.AddWithValue("@Codigo", art.Codigo);
-                comando.Parameters.AddWithValue("@Nombre", art.Nombre);
-                comando.Parameters.AddWithValue("@Descripcion", (object)art.Descripcion ?? DBNull.Value);
-                comando.Parameters.AddWithValue("@IdMarca", art.Marca?.Id ?? (object)DBNull.Value);
-                comando.Parameters.AddWithValue("@IdCategoria", art.Categoria?.Id ?? (object)DBNull.Value);
-                comando.Parameters.AddWithValue("@ImagenUrl", (object)art.ImagenUrl ?? DBNull.Value);
-                comando.Parameters.AddWithValue("@Precio", art.Precio);
+                string sql = @"UPDATE ARTICULOS 
+                       SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, 
+                           IdMarca = @IdMarca, IdCategoria = @IdCategoria, 
+                           ImagenUrl = @ImagenUrl, Precio = @Precio 
+                       WHERE Id = @Id";
 
-                conexion.Open();
-                comando.ExecuteNonQuery();
+                datos.SetearConsulta(sql);
+
+                datos.AgregarParametro("@Id", art.Id);
+                datos.AgregarParametro("@Codigo", art.Codigo);
+                datos.AgregarParametro("@Nombre", art.Nombre);
+                datos.AgregarParametro("@Descripcion", (object)art.Descripcion ?? DBNull.Value);
+                datos.AgregarParametro("@IdMarca", art.Marca?.Id ?? (object)DBNull.Value);
+                datos.AgregarParametro("@IdCategoria", art.Categoria?.Id ?? (object)DBNull.Value);
+                datos.AgregarParametro("@ImagenUrl", (object)art.ImagenUrl ?? DBNull.Value);
+                datos.AgregarParametro("@Precio", art.Precio);
+
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
             }
         }
 
+
         public Articulo ObtenerPorId(int id)
         {
-            const string sql = @"
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string sql = @"
         SELECT A.*, M.Id as MarcaId, M.Descripcion as MarcaDesc, 
                C.Id as CategoriaId, C.Descripcion as CategoriaDesc 
         FROM ARTICULOS A
@@ -147,51 +172,44 @@ namespace ControlStock.Datos
         LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id
         WHERE A.Id = @Id";
 
-            using (var conexion = new SqlConnection(connectionString))
-            using (var comando = new SqlCommand(sql, conexion))
-            {
-                comando.Parameters.AddWithValue("@Id", id);
-                conexion.Open();
+                datos.SetearConsulta(sql);
+                datos.AgregarParametro("@Id", id);
+                datos.EjecutarLectura();
 
-                using (var reader = comando.ExecuteReader())
+                if (datos.Lector.Read())
                 {
-                    if (reader.Read())
+                    Articulo art = new Articulo();
+                    art.Id = (int)datos.Lector["Id"];
+                    art.Codigo = datos.Lector["Codigo"].ToString();
+                    art.Nombre = datos.Lector["Nombre"].ToString();
+
+                    // ... (el resto del código para leer los datos igual que antes, usando datos.Lector)
+
+                    art.Marca = new Marca
                     {
-                        return new Articulo
-                        {
-                            Id = (int)reader["Id"],
-                            Codigo = reader["Codigo"].ToString(),
-                            Nombre = reader["Nombre"].ToString(),
-                            Descripcion = reader["Descripcion"] != DBNull.Value ?
-                                         reader["Descripcion"].ToString() : null,
-                            Precio = (decimal)reader["Precio"],
-                            ImagenUrl = reader["ImagenUrl"] != DBNull.Value ?
-                                       reader["ImagenUrl"].ToString() : null,
+                        Id = datos.Lector["MarcaId"] != DBNull.Value ? (int)datos.Lector["MarcaId"] : 0,
+                        Descripcion = datos.Lector["MarcaDesc"] != DBNull.Value ? datos.Lector["MarcaDesc"].ToString() : ""
+                    };
+                    art.Categoria = new Categoria
+                    {
+                        Id = datos.Lector["CategoriaId"] != DBNull.Value ? (int)datos.Lector["CategoriaId"] : 0,
+                        Descripcion = datos.Lector["CategoriaDesc"] != DBNull.Value ? datos.Lector["CategoriaDesc"].ToString() : ""
+                    };
 
-                            // Marca
-                            Marca = new Marca
-                            {
-                                Id = reader["MarcaId"] != DBNull.Value ?
-                                    (int)reader["MarcaId"] : 0,
-                                Descripcion = reader["MarcaDesc"] != DBNull.Value ?
-                                            reader["MarcaDesc"].ToString() : string.Empty
-                            },
-
-                            // Categoría
-                            Categoria = new Categoria
-                            {
-                                Id = reader["CategoriaId"] != DBNull.Value ?
-                                    (int)reader["CategoriaId"] : 0,
-                                Descripcion = reader["CategoriaDesc"] != DBNull.Value ?
-                                            reader["CategoriaDesc"].ToString() : string.Empty
-                            }
-                        };
-                    }
+                    return art;
                 }
-            }
-            return null; 
-        }
 
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
 
     }
 
