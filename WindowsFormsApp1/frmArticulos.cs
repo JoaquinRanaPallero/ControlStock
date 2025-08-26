@@ -169,11 +169,6 @@ namespace WindowsFormsApp1
         }
 
 
-        private void btnModificar2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
         {
             List<Articulo> listaFiltrada;
